@@ -21,4 +21,6 @@ The aim of this project involves building a classification model that that categ
 The project includes a web app where an emergency worker can input a new messsage and get classification results in several categories and the web app also displays visualizations of the data.
 
 ## Data Source <a name="source"></a>
-The data was provided by Figure Eight
+The data was provided by Figure Eight["https://www.figure-eight.com/] in partnership with Udacity's Data Scientist Nanodegree Program and it contained labeled disaster messages received by an aid organization.
+
+
