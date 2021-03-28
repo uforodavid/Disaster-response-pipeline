@@ -9,7 +9,7 @@ This project was completed as part of the requirements for Udacity NanoDegree Ce
 4. [File Descriptions](#files)
 5. [How To Run Script](#script)
 5. [Results](#results)
-6. [Licensing, Authors, and Acknowledgements](#licensing)
+6. [Licensing and Acknowledgements](#licensing)
 
 ## Installation Technologies <a name="installation"></a>
 The required Technologies for this project include Python with some of it's libraries; Scikit Learn, Pandas, Sqlite3, sqlalchemy, nltk, plotly, pickle and HTML, Bootstrap.
@@ -74,12 +74,15 @@ The data was provided by [Figure Eight](https://www.figure-eight.com) in partner
 
 3. Go to http://0.0.0.0:3001/
 
-## Results
+## Results <a name="results"></a>
 Please see screenshots of Web app below.
 ![alt text](image.jpg)
 
 ![image1](image1.png)
 ![image2](image2.png)
 ![image3](image3.png)
+
+## Licensing and Acknowledgments <a name="licensing"></a>
+I give credit to Figure Eight for making the data available and Udacity for adding this project to the Nanodegree course work. The code and files here are open to use.
 
 
