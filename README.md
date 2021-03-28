@@ -76,10 +76,10 @@ The data was provided by [Figure Eight](https://www.figure-eight.com) in partner
 
 ## Results
 Please see screenshots of Web app below.
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![alt text](image.jpg)
 
-![image1.PNG]
-![image2.PNG]
-![image3.PNG]
+![image1](image1.png)
+![image2](image2.png)
+![image3](image3.png)
 
 
