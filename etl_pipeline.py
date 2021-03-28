@@ -37,5 +37,5 @@ def etl_pipeline(messages, categories):
     # drop duplicates
     df = df.drop_duplicates()
     #load dataframe to SQL database
-    engine = create_engine('sqlite:///Databasename.db')
+    engine = create_engine('sqlite:///DisasterResponses.db')
     return df.to_sql('table_name', engine, index=False)

@@ -44,19 +44,24 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
-    catg_nam = df.iloc[:, 4:].columns
-    bol = df.iloc[:, 4:] != 0
-    cat_bol = bol.sum().values
+    #genre and aid_related status
+    aid_rel1 = df[df['aid_related']==1].groupby('genre').count()['message']
+    aid_rel0 = df[df['aid_related']==0].groupby('genre').count()['message']
+    genre_names = list(aid_rel1.index)
 
-    sum_cat = df.iloc[:, 4:].sum()
-    top_cat = sum_cat.sort_values(ascending=False)[1:11]
-    top_cat_names = list(top_cat.index)
+    # let's calculate distribution of classes with 1
+    class_distr1 = df.drop(['id', 'message', 'original', 'genre'], axis = 1).sum()/len(df)
+
+    #sorting values in ascending
+    class_distr1 = class_distr1.sort_values(ascending = False)
+
+    #series of values that have 0 in classes
+    class_distr0 = (class_distr1 -1) * -1
+    class_name = list(class_distr1.index)
 
 
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
+
+ # create visuals
     graphs = [
         {
             'data': [
@@ -76,40 +81,62 @@ def index():
                 }
             }
         },
+        
         {
             'data': [
                 Bar(
-                    x=catg_nam,
-                    y=cat_bol
+                    x=genre_names,
+                    y=aid_rel1,
+                    name = 'Aid related'
+
+                ),
+                Bar(
+                    x=genre_names,
+                    y= aid_rel0,
+                    name = 'Aid not related'
                 )
             ],
 
             'layout': {
-                'title': 'Message Categories distribution',
+                'title': 'Distribution of message by genre and \'aid related\' class ',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Categories"
-                }
+                    'title': "Genre"
+                },
+                'barmode' : 'group'
             }
         },
         {
             'data': [
                 Bar(
-                    x=top_cat_names,
-                    y=top_cat
+                    x=class_name,
+                    y=class_distr1,
+                    name = 'Class = 1'
+                    #orientation = 'h'
+                ),
+                Bar(
+                    x=class_name,
+                    y=class_distr0,
+                    name = 'Class = 0',
+                    marker = dict(
+                            color = 'rgb(212, 228, 247)'
+                                )
+                    #orientation = 'h'
                 )
             ],
 
             'layout': {
-                'title': 'Top 10 Categories',
+                'title': 'Distribution of labels within classes',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Distribution"
                 },
                 'xaxis': {
-                    'title': "Categories"
-                }
+                    'title': "Class",
+            #        'tickangle': -45
+                },
+                'barmode' : 'stack'
             }
         }
     ]
