@@ -4,6 +4,16 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    This function returns merged dataframe of input dataframes.
+
+    Parameters:
+        messages_filepath (str):The messages data filepath
+        categories_filepath (str): The categories data filepath
+
+    Returns:
+        Dataframe: Input files are loaded and merged to form a single data frame.  
+    '''
     #load in data set
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -13,6 +23,17 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+    '''
+    This function takes in a dataframe and cleans it and return a new dataframe
+    Parameters
+    ----------
+        df: pandas.DataFrame
+            The dataFrame containing merged data to be cleaned
+    Returns
+    -------
+        df: pandas.DataFrame
+            A new dataFrame containing cleaned data
+    '''
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(pat=';', n=-1, expand=True)
     headers = categories.iloc[0]
@@ -36,6 +57,8 @@ def clean_data(df):
     df = df.drop(labels='categories', axis=1, inplace=True)
     # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis= 1)
+    # converting categories to binary
+    df.replace({'related':2}, 1, inplace=True)
     # drop duplicates
     df = df.drop_duplicates()
     return df

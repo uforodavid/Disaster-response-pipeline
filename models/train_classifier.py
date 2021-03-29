@@ -34,7 +34,7 @@ def load_data(database_filepath):
     df = pd.read_sql("SELECT * FROM disaster_table", engine)
     X = df['message'] #feature variable
     Y = df.iloc[:,4:] #target variable
-    #    return X, Y
+    return X, Y
 
 def tokenize(text):
     stop_words = stopwords.words("english")
@@ -67,8 +67,7 @@ def build_model():
     }
 
     cv_rfc = GridSearchCV(pipeline_rfc, param_grid = parameters_rfc)
-    # Fit the first tuned model
-    cv_rfc.fit(X_train, Y_train)
+    return cv_rfc
 
     
 def plot_scores(Y_test, Y_pred):
