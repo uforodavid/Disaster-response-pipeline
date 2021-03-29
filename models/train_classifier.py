@@ -30,11 +30,12 @@ from nltk.corpus import stopwords
 
     #load_data()
 def load_data(database_filepath):
-    engine = create_engine('sqlite:////Users/davideffiong/Documents/Disaster-Response-Pipeline/DisasterResponse.db')
+    engine = create_engine('sqlite:////Users/davideffiong/Documents/Disaster-Response-Pipeline/data/DisasterResponse.db')
     df = pd.read_sql("SELECT * FROM disaster_table", engine)
     X = df['message'] #feature variable
     Y = df.iloc[:,4:] #target variable
-    return X, Y
+    category_names = Y.columns
+    return X, Y, category_names
 
 def tokenize(text):
     stop_words = stopwords.words("english")
@@ -51,8 +52,7 @@ def tokenize(text):
     return tokens
 
 def build_model():
-    #split data into training and test data set
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, random_state = 1)
+    
     #Random Forest Classifier pipeline
 
     pipeline_rfc = Pipeline([
@@ -91,7 +91,7 @@ def save_model(model, model_filepath):
     # Create a pickle file for the model
     file_name = 'classifier.pkl'
     with open (file_name, 'wb') as f:
-        pickle.dump(cv_ada, f)
+        pickle.dump(cv_rfc, f)
 
 
 def main():
