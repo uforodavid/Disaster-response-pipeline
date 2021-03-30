@@ -30,7 +30,18 @@ from nltk.corpus import stopwords
 
     #load_data()
 def load_data(database_filepath):
-    engine = create_engine('sqlite:////Users/davideffiong/Documents/Disaster-Response-Pipeline/data/DisasterResponse.db')
+    '''
+    This function loads in the data from database
+    Parameters
+    ----------
+        :database_filepath
+        
+    Returns
+    -------
+        X - feature variable,
+        Y - target variable
+    '''
+    engine = create_engine('sqlite:///' + str (database_filepath))
     df = pd.read_sql("SELECT * FROM disaster_table", engine)
     X = df['message'] #feature variable
     Y = df.iloc[:,4:] #target variable
@@ -38,6 +49,9 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    '''
+    this function clean text, removes stop words, tokenize and lemmatize stop words.
+    '''
     stop_words = stopwords.words("english")
     lemmatizer = WordNetLemmatizer()
     # normalize case and remove punctuation
@@ -52,7 +66,10 @@ def tokenize(text):
     return tokens
 
 def build_model():
-    
+    '''
+    This function builds a pipeline using count vectorizer, Tfidf and Random forest classifier with grid search CV
+    and returns model.
+    '''
     #Random Forest Classifier pipeline
 
     pipeline_rfc = Pipeline([
@@ -83,7 +100,7 @@ def plot_scores(Y_test, Y_pred):
 def evaluate_model(model, X_test, Y_test, category_names):
     # Get results and add them to a dataframe.
     # Predicting using the first tuned model 
-    Y_pred = cv_rfc.predict(X_test)
+    Y_pred = model.predict(X_test)
     plot_scores(Y_test, Y_pred)
 
 
