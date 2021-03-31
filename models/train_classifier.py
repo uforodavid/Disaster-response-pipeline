@@ -28,6 +28,7 @@ nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger', 'stopwords'])
 import nltk
 from nltk.corpus import stopwords
 
+
     #load_data()
 def load_data(database_filepath):
     '''
@@ -41,12 +42,13 @@ def load_data(database_filepath):
         X - feature variable,
         Y - target variable
     '''
-    engine = create_engine('sqlite:///' + str (database_filepath))
-    df = pd.read_sql("SELECT * FROM disaster_table", engine)
+    engine = create_engine('sqlite:///DisasterResponse.db')
+    df = pd.read_sql("SELECT * FROM Disasters", engine)
     X = df['message'] #feature variable
     Y = df.iloc[:,4:] #target variable
     category_names = Y.columns
     return X, Y, category_names
+
 
 def tokenize(text):
     '''
@@ -88,6 +90,7 @@ def build_model():
 
     
 def plot_scores(Y_test, Y_pred):
+    """This function prints model accuracy of the classification report"""
     i = 0
     for col in Y_test:
         print('Feature {}: {}'.format(i+1, col))
@@ -98,6 +101,7 @@ def plot_scores(Y_test, Y_pred):
 
     
 def evaluate_model(model, X_test, Y_test, category_names):
+    """This function evaluates the model using test data."""
     # Get results and add them to a dataframe.
     # Predicting using the first tuned model 
     Y_pred = model.predict(X_test)
@@ -105,10 +109,11 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """This function saves the classification model in a pickle file called classifier.pkl"""
     # Create a pickle file for the model
     file_name = 'classifier.pkl'
     with open (file_name, 'wb') as f:
-        pickle.dump(cv_rfc, f)
+        pickle.dump(model, f)
 
 
 def main():

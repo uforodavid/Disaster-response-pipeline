@@ -1,3 +1,4 @@
+#python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
 import sys
 import numpy as np
 import pandas as pd
@@ -52,9 +53,7 @@ def clean_data(df):
     # convert column from string to numeric
         categories[column] = categories[column].astype(np.int)
     # drop the original categories column from `df`
-
-    
-    df = df.drop(labels='categories', axis=1, inplace=True)
+    df.drop(labels='categories', axis=1, inplace=True)
     # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis= 1)
     # converting categories to binary
@@ -65,7 +64,7 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     """Saves DataFrame (df) to database path"""
-    name = 'sqlite:///' + database_filename
+    name = 'sqlite:///DisasterResponse.db'
     engine = create_engine(name)
     df.to_sql('Disasters', engine, index=False, if_exists='replace')
 
@@ -98,3 +97,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
