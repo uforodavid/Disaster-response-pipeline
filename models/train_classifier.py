@@ -42,8 +42,9 @@ def load_data(database_filepath):
         X - feature variable,
         Y - target variable
     '''
-    engine = create_engine('sqlite:///DisasterResponse.db')
-    df = pd.read_sql("SELECT * FROM Disasters", engine)
+    #engine = create_engine('sqlite:///%s' % database_filepath)
+    engine = create_engine('sqlite:///' + database_filepath)
+    df = pd.read_sql_table("Disasters_table", engine)
     X = df['message'] #feature variable
     Y = df.iloc[:,4:] #target variable
     category_names = Y.columns

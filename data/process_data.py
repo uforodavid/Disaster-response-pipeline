@@ -64,9 +64,9 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     """Saves DataFrame (df) to database path"""
-    name = 'sqlite:///DisasterResponse.db'
+    name = 'sqlite:///{}'.format(database_filename)
     engine = create_engine(name)
-    df.to_sql('Disasters', engine, index=False, if_exists='replace')
+    df.to_sql('Disasters_table', engine, index=False, if_exists='replace')
 
 
 def main():
