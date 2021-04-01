@@ -12,7 +12,7 @@ This project was completed as part of the requirements for Udacity NanoDegree Ce
 6. [Licensing and Acknowledgements](#licensing)
 
 ## Installation Technologies <a name="installation"></a>
-The required Technologies for this project include Python with some of it's libraries; Scikit Learn, Pandas, Sqlite3, sqlalchemy, nltk, plotly, pickle and HTML, Bootstrap.
+The required Technologies for this project include Python with some of it's libraries; Scikit-Learn, Pandas, Sqlite3, sqlalchemy, nltk, plotly, pickle and HTML, Bootstrap.
 
 
 ## Project Summary <a name="Summary"></a>
@@ -32,7 +32,7 @@ The project has three componants which are:
  - Builds a text processing and machine learning pipeline
  - Trains and tunes a model using GridSearchCV
  - Outputs results on the test set
- - Exports the final model as a pickle file
+ - Exports the model as a pickle file
  3.Flask Web App: the web app enables the user to enter a disaster message, and then view the categories of the message.
  - The web app also contains some visualizations that describe the data.
 
@@ -65,7 +65,7 @@ The data was provided by [Figure Eight](https://www.figure-eight.com) in partner
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv DisasterResponse.db`
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
         `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
